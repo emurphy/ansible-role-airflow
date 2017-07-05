@@ -13,8 +13,8 @@ ANSIBLE_GIT_REPOSITORY = ENV['ANSIBLE_GIT_REPOSITORY'] \
 # Managed boxes for this role (should have all platform and version defined in
 # meta/main.yml)
 VMS = {
-  :trusty => {
-    :box => "ubuntu/xenial64"
+  :zesty => {
+    :box => "ubuntu/zesty64"
   }
 }
 

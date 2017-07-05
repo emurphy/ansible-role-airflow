@@ -14,7 +14,7 @@ ANSIBLE_GIT_REPOSITORY = ENV['ANSIBLE_GIT_REPOSITORY'] \
 # meta/main.yml)
 VMS = {
   :trusty => {
-    :box => "ubuntu/trusty64"
+    :box => "ubuntu/xenial64"
   }
 }
 

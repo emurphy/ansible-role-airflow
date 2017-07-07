@@ -7,17 +7,17 @@ airflow_user_name: 'airflow'
 airflow_user_group: "{{ airflow_user_name }}"
 airflow_user_shell: '/bin/false'
 airflow_user_home_path: '/var/lib/airflow'
-airflow_user_home_mode: '0700'
+airflow_user_home_mode: '0755'
 
 airflow_log_path: '/var/log/airflow'
 airflow_log_owner: "{{ airflow_user_name }}"
 airflow_log_group: "{{ airflow_user_group }}"
-airflow_log_mode: '0700'
+airflow_log_mode: '0755'
 
 airflow_pid_path: '/var/run/airflow'
 airflow_pid_owner: "{{ airflow_user_name }}"
 airflow_pid_group: "{{ airflow_user_group }}"
-airflow_pid_mode: '0700'
+airflow_pid_mode: '0755'
 
 airflow_virtualenv: "{{ airflow_user_home_path }}/venv"
 airflow_python_version: 'python3.6'

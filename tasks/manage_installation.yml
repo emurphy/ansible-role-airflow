@@ -32,6 +32,11 @@
     mode: "{{ airflow_user_home_mode }}"
 
 
+# python 3.6 requires special repository on ubuntu 16.04 (https://askubuntu.com/questions/865554/how-do-i-install-python-3-6-using-apt-get)
+- apt_repository:
+    repo: ppa:jonathonf/python-3.6
+    state: present
+
 # Install airflow packages
 - name: 'Manage airflow installation'
   become: True

@@ -17,3 +17,6 @@
 
 # Tox testing
 .tox
+
+# idea files
+.idea

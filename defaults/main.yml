@@ -25,7 +25,11 @@ airflow_packages:
   - name: 'apache-airflow'
     version: '1.8.1'
 airflow_extra_packages:
-  - name: 'apache-airflow[celery,crypto,postgres,redis,s3]'
+  - name: 'apache-airflow[celery]'
+  - name: 'apache-airflow[crypto]'
+  - name: 'apache-airflow[postgres]'
+  - name: 'apache-airflow[redis]'
+  - name: 'apache-airflow[s3]'
 airflow_system_dependencies: []
 
 # Services management

@@ -14,7 +14,7 @@ ANSIBLE_GIT_REPOSITORY = ENV['ANSIBLE_GIT_REPOSITORY'] \
 # meta/main.yml)
 VMS = {
   :zesty => {
-    :box => "ubuntu/zesty64"
+    :box => "ubuntu/xenial64"
   }
 }
 

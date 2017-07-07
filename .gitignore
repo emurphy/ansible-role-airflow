@@ -20,3 +20,5 @@
 
 # idea files
 .idea
+
+*.log

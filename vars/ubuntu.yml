@@ -8,5 +8,5 @@ airflow_default_system_dependencies:
   - name: 'libssl-dev'
   - name: 'libffi-dev'
   - name: 'build-essential'
-  #- name: 'python-virtualenv'
-  #- name: 'python-pip'
+  - name: 'python-virtualenv'
+  - name: 'python-pip'

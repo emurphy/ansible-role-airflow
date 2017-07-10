@@ -18,7 +18,7 @@
     path: "{{ airflow_config.core.home }}"
     owner: "{{ airflow_user_name }}"
     group: "{{ airflow_user_group }}"
-    mode: '0744'
+    mode: "{{ airflow_user_home_mode }}"
     state: 'directory'
 
 

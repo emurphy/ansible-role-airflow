@@ -50,6 +50,30 @@
   when: "{{ 'airflow-scheduler' in airflow_managed_initd_services }}"
 
 
+- name: 'Manage worker service with upstart'
+  become: True
+  template:
+    src: "{{ role_path }}/templates/upstart/airflow-worker.conf.j2"
+    dest: '/etc/init/airflow-worker.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+  notify: 'Restart airflow-worker'
+  when: "{{ 'airflow-worker' in airflow_managed_upstart_services }}"
+
+
+- name: 'Manage worker service with init.d'
+  become: True
+  template:
+    src: "{{ role_path }}/templates/init.d/airflow-worker.j2"
+    dest: '/etc/init.d/airflow-worker'
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  notify: 'Restart airflow-worker'
+  when: "{{ 'airflow-worker' in airflow_managed_initd_services }}"
+
+
 # Services states
 - name: 'Manage airflow services states'
   become: True

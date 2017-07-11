@@ -37,12 +37,16 @@ airflow_managed_upstart_services: []
 airflow_managed_initd_services:
   - 'airflow-scheduler'
   - 'airflow-webserver'
+  - 'airflow-worker'
 
 airflow_services_states:
   - name: 'airflow-webserver'
     enabled: True
     state: 'started'
   - name: 'airflow-scheduler'
+    enabled: True
+    state: 'started'
+  - name: 'airflow-worker'
     enabled: True
     state: 'started'
 
@@ -65,6 +69,13 @@ airflow_scheduler_pid_file: "{{ airflow_pid_path }}/airflow-scheduler.pid"
 airflow_scheduler_log_file: "{{ airflow_log_path }}/airflow-scheduler.log"
 airflow_scheduler_respawn_limit_count: 5
 airflow_scheduler_respawn_limit_timeperiod: 30
+
+# Worker service configuration
+airflow_worker_concurrency: 16
+airflow_worker_pid_file: "{{ airflow_pid_path }}/airflow-worker.pid"
+airflow_worker_log_file: "{{ airflow_log_path }}/airflow-worker.log"
+airflow_worker_respawn_limit_count: 5
+airflow_worker_respawn_limit_timeperiod: 30
 
 # Databases variables
 airflow_manage_database: True

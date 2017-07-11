@@ -27,3 +27,11 @@
     state: 'restarted'
   with_items: "{{ airflow_services_states }}"
   when: "{{ (item.name == 'airflow-scheduler') and (item.state == 'started') }}"
+
+- name: 'Restart airflow-worker'
+  become: True
+  service:
+    name: "{{ item.name }}"
+    state: 'restarted'
+  with_items: "{{ airflow_services_states }}"
+  when: "{{ (item.name == 'airflow-worker') and (item.state == 'started') }}"

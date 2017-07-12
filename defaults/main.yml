@@ -64,7 +64,8 @@ airflow_webserver_respawn_limit_count: 5
 airflow_webserver_respawn_limit_timeperiod: 30
 
 # Scheduler service configuration
-airflow_scheduler_runs: 1
+airflow_scheduler_runs: -1
+airflow_scheduler_run_duration: -1
 airflow_scheduler_pid_file: "{{ airflow_pid_path }}/airflow-scheduler.pid"
 airflow_scheduler_log_file: "{{ airflow_log_path }}/airflow-scheduler.log"
 airflow_scheduler_respawn_limit_count: 5
@@ -148,11 +149,17 @@ airflow_defaults_config:
   scheduler:
     job_heartbeat_sec: 5
     scheduler_heartbeat_sec: 5
+    min_file_process_interval: 0
+    dag_dir_list_interval: 30
+    print_stats_interval: 30
+    zombie_task_threshold: 300
+    catchup_by_default: True
     statsd_on: False
     statsd_host: 'localhost'
     statsd_port: 8125
     statsd_prefix: 'airflow'
     max_threads: 2
+    authenticate: False
 
   mesos:
     master: 'localhost:5050'

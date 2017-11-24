@@ -5,7 +5,7 @@
 # Installation vars
 airflow_user_name: 'airflow'
 airflow_user_group: "{{ airflow_user_name }}"
-airflow_user_shell: '/bin/false'
+airflow_user_shell: '/bin/bash'
 airflow_user_home_path: '/var/lib/airflow'
 airflow_user_home_mode: '0744'
 
@@ -33,7 +33,10 @@ airflow_extra_packages:
 airflow_system_dependencies: []
 
 # Services management
-airflow_managed_upstart_services: []
+airflow_managed_systemd_services:
+  - 'airflow-scheduler'
+  - 'airflow-webserver'
+  - 'airflow-worker'
 airflow_managed_initd_services:
   - 'airflow-scheduler'
   - 'airflow-webserver'
@@ -60,22 +63,22 @@ airflow_webserver_hostname: "{{ ansible_default_ipv4.address }}"
 airflow_webserver_pid_file: "{{ airflow_pid_path }}/airflow-webserver.pid"
 airflow_webserver_log_file: "{{ airflow_log_path }}/airflow-webserver.log"
 airflow_webserver_debug: False
-airflow_webserver_respawn_limit_count: 5
+airflow_webserver_respawn_limit_count: 10
 airflow_webserver_respawn_limit_timeperiod: 30
 
 # Scheduler service configuration
-airflow_scheduler_runs: -1
-airflow_scheduler_run_duration: -1
+airflow_scheduler_runs: 10
+airflow_scheduler_run_duration: 900
 airflow_scheduler_pid_file: "{{ airflow_pid_path }}/airflow-scheduler.pid"
 airflow_scheduler_log_file: "{{ airflow_log_path }}/airflow-scheduler.log"
-airflow_scheduler_respawn_limit_count: 5
+airflow_scheduler_respawn_limit_count: 10
 airflow_scheduler_respawn_limit_timeperiod: 30
 
 # Worker service configuration
 airflow_worker_concurrency: 16
 airflow_worker_pid_file: "{{ airflow_pid_path }}/airflow-worker.pid"
 airflow_worker_log_file: "{{ airflow_log_path }}/airflow-worker.log"
-airflow_worker_respawn_limit_count: 5
+airflow_worker_respawn_limit_count: 10
 airflow_worker_respawn_limit_timeperiod: 30
 
 # Databases variables

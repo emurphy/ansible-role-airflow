@@ -13,15 +13,16 @@
 
 [Unit]
 Description=Airflow webserver daemon
-After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
-Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+After=network.target
+#After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+#Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 
 [Service]
-EnvironmentFile=/etc/sysconfig/airflow
+#EnvironmentFile=/etc/sysconfig/airflow
 User=airflow
 Group=airflow
 Type=simple
-ExecStart=/bin/airflow webserver --pid /run/airflow/webserver.pid
+ExecStart=/var/lib/airflow/venv/bin/airflow webserver --daemon --port 8080 --workers 1 --workerclass sync --worker_timeout 30 --hostname 127.0.0.1 --pid /var/run/airflow/airflow-webserver.pid --log-file /var/log/airflow/airflow-webserver.log
 Restart=on-failure
 RestartSec=5s
 PrivateTmp=true

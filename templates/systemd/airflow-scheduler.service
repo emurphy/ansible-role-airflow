@@ -13,15 +13,16 @@
 
 [Unit]
 Description=Airflow scheduler daemon
-After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
-Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+After=network.target
+#After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+#Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 
 [Service]
-EnvironmentFile=/etc/sysconfig/airflow
+#EnvironmentFile=/etc/sysconfig/airflow
 User=airflow
 Group=airflow
 Type=simple
-ExecStart=/bin/airflow scheduler
+ExecStart=/var/lib/airflow/venv/bin/airflow scheduler --daemon --num_runs 10 --run-duration 3000 --pid /var/run/airflow/airflow-scheduler.pid --log-file /var/log/airflow/airflow-scheduler.log
 Restart=always
 RestartSec=5s
 

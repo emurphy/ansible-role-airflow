@@ -13,15 +13,16 @@
 
 [Unit]
 Description=Airflow celery worker daemon
-After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
-Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
+After=network.target
+#After=network.target postgresql.service mysql.service redis.service rabbitmq-server.service
+#Wants=postgresql.service mysql.service redis.service rabbitmq-server.service
 
 [Service]
-EnvironmentFile=/etc/sysconfig/airflow
+#EnvironmentFile=/etc/sysconfig/airflow
 User=airflow
 Group=airflow
 Type=simple
-ExecStart=/bin/airflow worker
+ExecStart=/var/lib/airflow/venv/bin/airflow worker --daemon --concurrency 32 --pid /var/run/airflow/airflow-worker.pid --log-file /var/log/airflow/airflow-worker.log
 Restart=on-failure
 RestartSec=10s
 

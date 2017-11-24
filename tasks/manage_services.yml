@@ -2,16 +2,25 @@
 
 # Airflow services management
 
-- name: 'Manage webserver service with upstart'
+- name: 'Create airflow tempfile directory'
   become: True
   template:
-    src: "{{ role_path }}/templates/upstart/airflow-webserver.conf.j2"
-    dest: '/etc/init/airflow-webserver.conf'
+    src: "{{ role_path }}/templates/systemd/airflow.conf"
+    dest: '/usr/lib/tmpfiles.d/airflow.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0644'
+
+- name: 'Manage webserver service with systemd'
+  become: True
+  template:
+    src: "{{ role_path }}/templates/systemd/airflow-webserver.service"
+    dest: '/lib/systemd/system/airflow-webserver.service'
     owner: 'root'
     group: 'root'
     mode: '0644'
   notify: 'Restart airflow-webserver'
-  when: "{{ 'airflow-scheduler' in airflow_managed_upstart_services }}"
+  when: "{{ 'airflow-webserver' in airflow_managed_systemd_services }}"
 
 
 - name: 'Manage webserver service with init.d'
@@ -23,19 +32,19 @@
     group: 'root'
     mode: '0755'
   notify: 'Restart airflow-webserver'
-  when: "{{ 'airflow-scheduler' in airflow_managed_initd_services }}"
+  when: "{{ 'airflow-webserver' in airflow_managed_initd_services }}"
 
 
-- name: 'Manage scheduler service with upstart'
+- name: 'Manage scheduler service with systemd'
   become: True
   template:
-    src: "{{ role_path }}/templates/upstart/airflow-scheduler.conf.j2"
-    dest: '/etc/init/airflow-scheduler.conf'
+    src: "{{ role_path }}/templates/systemd/airflow-scheduler.service"
+    dest: '/lib/systemd/system/airflow-scheduler.service'
     owner: 'root'
     group: 'root'
     mode: '0644'
   notify: 'Restart airflow-scheduler'
-  when: "{{ 'airflow-scheduler' in airflow_managed_upstart_services }}"
+  when: "{{ 'airflow-scheduler' in airflow_managed_systemd_services }}"
 
 
 - name: 'Manage scheduler service with init.d'
@@ -50,16 +59,16 @@
   when: "{{ 'airflow-scheduler' in airflow_managed_initd_services }}"
 
 
-- name: 'Manage worker service with upstart'
+- name: 'Manage worker service with systemd'
   become: True
   template:
-    src: "{{ role_path }}/templates/upstart/airflow-worker.conf.j2"
-    dest: '/etc/init/airflow-worker.conf'
+    src: "{{ role_path }}/templates/systemd/airflow-worker.service"
+    dest: '/lib/systemd/system/airflow-worker.service'
     owner: 'root'
     group: 'root'
     mode: '0644'
   notify: 'Restart airflow-worker'
-  when: "{{ 'airflow-worker' in airflow_managed_upstart_services }}"
+  when: "{{ 'airflow-worker' in airflow_managed_systemd_services }}"
 
 
 - name: 'Manage worker service with init.d'
